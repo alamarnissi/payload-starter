@@ -12,6 +12,8 @@ import { $getSelection, $isRangeSelection } from 'lexical'
 import { $createLargeBodyNode, $isLargeBodyNode, LargeBodyNode } from './nodes/LargeBodyNode'
 import './index.scss'
 
+import { LargeBodyIcon } from './Icon'
+
 export const LargeBodyFeature = (): FeatureProvider => {
   return {
     feature: () => ({
@@ -19,11 +21,10 @@ export const LargeBodyFeature = (): FeatureProvider => {
         sections: [
           FormatSectionWithEntries([
             {
-              ChildComponent: () =>
-                import('./Icon').then((module) => module.LargeBodyIcon),
+              ChildComponent: LargeBodyIcon,
               isActive: ({ editor, selection }) => {
                 if ($isRangeSelection(selection)) {
-                  const selectedNode = getSelectedNode(selection)
+                  const selectedNode = getSelectedNode(selection as any) as any
                   const largeBodyParent = $findMatchingParent(selectedNode, $isLargeBodyNode)
                   return largeBodyParent != null
                 }
@@ -47,7 +48,7 @@ export const LargeBodyFeature = (): FeatureProvider => {
       },
       nodes: [
         {
-          node: LargeBodyNode,
+          node: LargeBodyNode as any,
           type: LargeBodyNode.getType(),
         },
       ],
@@ -57,8 +58,7 @@ export const LargeBodyFeature = (): FeatureProvider => {
           {
             options: [
               new SlashMenuOption(`Large Body`, {
-                Icon: () =>
-                  import('./Icon').then((module) => module.LargeBodyIcon),
+                Icon: LargeBodyIcon,
                 keywords: ['largeBody'],
                 onSelect: ({ editor }) => {
                   const selection = $getSelection()
@@ -69,7 +69,7 @@ export const LargeBodyFeature = (): FeatureProvider => {
               }),
             ],
             key: 'Basic',
-            displayName: 'Basic',
+            title: 'Basic',
           },
         ],
       },

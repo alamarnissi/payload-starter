@@ -7,10 +7,12 @@ import {
   SlashMenuOption,
   getSelectedNode,
 } from '@payloadcms/richtext-lexical'
-import { $getSelection, $isRangeSelection } from 'lexical'
+import { $getSelection, $isRangeSelection, LexicalEditor } from 'lexical'
 
 import { $createLabelNode, $isLabelNode, LabelNode } from './nodes/LabelNode'
 import './index.scss'
+
+import { LabelIcon } from './Icon'
 
 export const LabelFeature = (): FeatureProvider => {
   return {
@@ -19,11 +21,10 @@ export const LabelFeature = (): FeatureProvider => {
         sections: [
           FormatSectionWithEntries([
             {
-              ChildComponent: () =>
-                import('./Icon').then((module) => module.LabelIcon),
-              isActive: ({ selection }) => {
+              ChildComponent: LabelIcon,
+              isActive: ({ editor, selection }: {editor: any, selection: any}) => {
                 if ($isRangeSelection(selection)) {
-                  const selectedNode = getSelectedNode(selection)
+                  const selectedNode = getSelectedNode(selection as any) as any
                   const labelParent = $findMatchingParent(selectedNode, $isLabelNode)
                   return labelParent != null
                 }
@@ -47,7 +48,7 @@ export const LabelFeature = (): FeatureProvider => {
       },
       nodes: [
         {
-          node: LabelNode,
+          node: LabelNode as any,
           type: LabelNode.getType(),
         },
       ],
@@ -57,8 +58,7 @@ export const LabelFeature = (): FeatureProvider => {
           {
             options: [
               new SlashMenuOption(`Label`, {
-                Icon: () =>
-                  import('./Icon').then((module) => module.LabelIcon),
+                Icon: LabelIcon,
                 keywords: ['label'],
                 onSelect: () => {
                   const selection = $getSelection()
@@ -69,7 +69,7 @@ export const LabelFeature = (): FeatureProvider => {
               }),
             ],
             key: 'Basic',
-            displayName: 'Basic',
+            title: 'Basic',
           },
         ],
       },

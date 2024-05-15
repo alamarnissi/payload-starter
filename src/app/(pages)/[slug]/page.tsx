@@ -6,7 +6,6 @@ import React from 'react'
 
 import type { Page } from '../../../payload/payload-types'
 
-import { staticHome } from '../../../payload/seed/home-static'
 import { fetchDoc } from '../../_api/fetchDoc'
 import { fetchDocs } from '../../_api/fetchDocs'
 import { generateMeta } from '../../_utilities/generateMeta'
@@ -36,13 +35,6 @@ export default async function Page({ params: { slug = 'home' } }) {
     // so swallow the error here and simply render the page with fallback data where necessary
     // in production you may want to redirect to a 404  page or at least log the error somewhere
     // console.error(error)
-  }
-
-  // if no `home` page exists, render a static one using dummy content
-  // you should delete this code once you have a home page in the CMS
-  // this is really only useful for those who are demoing this template
-  if (!page && slug === 'home') {
-    page = staticHome
   }
 
   if (!page) {
@@ -77,10 +69,6 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
     // this is so that we can render static fallback pages for the demo
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // in production you may want to redirect to a 404  page or at least log the error somewhere
-  }
-
-  if (!page) {
-    if (slug === 'home') page = staticHome
   }
 
   return generateMeta({ doc: page })

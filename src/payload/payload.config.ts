@@ -20,7 +20,6 @@ import { Projects } from './collections/Projects'
 import Users from './collections/Users'
 import BeforeDashboard from './components/BeforeDashboard'
 import BeforeLogin from './components/BeforeLogin'
-import { clearDBEndpoint, resetDBEndpoint, seedDBEndpoint } from './endpoints/resetDB'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
@@ -34,8 +33,8 @@ const m = path.resolve(__dirname, './emptyModuleMock.js')
 export default buildConfig({
   admin: {
     autoLogin: {
-      email: 'demo@payloadcms.com',
-      password: 'demo',
+      email: 'demo@gmail.com',
+      password: 'justapassword',
       prefillOnly: true,
     },
     bundler: webpackBundler(), // bundler-config
@@ -61,7 +60,6 @@ export default buildConfig({
         alias: {
           ...config.resolve?.alias,
           express: m,
-          [path.resolve(__dirname, './cron/reset')]: m,
         },
       },
     }),
@@ -70,7 +68,7 @@ export default buildConfig({
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   editor: lexicalEditor({}),
-  endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
+  endpoints: [],
   globals: [Settings, Header, Footer],
   graphQL: {
     disablePlaygroundInProduction: false,

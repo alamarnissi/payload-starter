@@ -7,7 +7,7 @@ import richText from '../../fields/richText'
 const columnFields: Field[] = [
   {
     name: 'size',
-    defaultValue: 'oneThird',
+    defaultValue: 'full',
     options: [
       {
         label: 'One Third',

@@ -5,13 +5,13 @@ import path from 'path'
 
 export const Media: CollectionConfig = {
   access: {
-    create: () => false,
-    delete: () => false,
+    create: () => true,
+    delete: () => true,
     read: () => true,
     update: () => false,
   },
   admin: {
-    description: 'Creating, updating, and deleting media is disabled for this demo.',
+    description: 'This section is for listing, creating, and deleting media.',
   },
   fields: [
     {

@@ -28,7 +28,7 @@ export const PostClient: React.FC<{ comments: Comment[]; post: Post }> = ({
           {
             blockName: 'Comments',
             blockType: 'comments',
-            comments,
+            comments: comments || [],
             doc: data,
             introContent: [
               {

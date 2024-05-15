@@ -34,12 +34,12 @@ export default async function Post({ params: { slug } }) {
   if (!post) {
     notFound()
   }
+  
+  // const comments = await fetchComments({
+  //   doc: post?.id,
+  // })
 
-  const comments = await fetchComments({
-    doc: post?.id,
-  })
-
-  return <PostClient comments={comments} post={post} />
+  return <PostClient comments={[]} post={post} />
 }
 
 export async function generateStaticParams() {
